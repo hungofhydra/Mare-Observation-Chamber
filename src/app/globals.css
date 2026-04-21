@@ -1,0 +1,490 @@
+/* Windows 98 Design System */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  --win98-bg:        #008080;   /* teal desktop */
+  --win98-gray:      #c0c0c0;   /* classic silver */
+  --win98-dark:      #808080;
+  --win98-darker:    #404040;
+  --win98-black:     #000000;
+  --win98-white:     #ffffff;
+  --win98-blue:      #000080;   /* title bar active */
+  --win98-blue-lt:   #1084d0;
+  --win98-yellow:    #ffff00;
+  --win98-red:       #ff0000;
+  --win98-highlight: #000080;
+  --win98-text:      #000000;
+
+  /* Raised bevel */
+  --bevel-out: inset -1px -1px #404040, inset 1px 1px #ffffff,
+               inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+  /* Sunken bevel */
+  --bevel-in:  inset -1px -1px #ffffff, inset 1px 1px #404040,
+               inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+  /* Button pressed */
+  --bevel-pressed: inset -1px -1px #ffffff, inset 1px 1px #808080;
+
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--win98-bg);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+  min-height: 100vh;
+  color: var(--win98-text);
+}
+
+/* ── Window ─────────────────────────────────────────── */
+.win98-window {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  border: 0;
+}
+
+.win98-titlebar {
+  background: linear-gradient(to right, var(--win98-blue), var(--win98-blue-lt));
+  color: var(--win98-white);
+  font-weight: bold;
+  font-size: 11px;
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  gap: 4px;
+}
+
+.win98-titlebar-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.win98-titlebar-title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.win98-titlebar-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.win98-tb-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  border: 0;
+  font-size: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--win98-black);
+  flex-shrink: 0;
+}
+
+.win98-tb-btn:active {
+  box-shadow: var(--bevel-pressed);
+}
+
+/* ── Menu bar ───────────────────────────────────────── */
+.win98-menubar {
+  background: var(--win98-gray);
+  border-bottom: 1px solid var(--win98-dark);
+  padding: 2px 4px;
+  display: flex;
+  gap: 2px;
+}
+
+.win98-menu-item {
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.win98-menu-item:hover {
+  background: var(--win98-highlight);
+  color: var(--win98-white);
+}
+
+/* ── Button ─────────────────────────────────────────── */
+.win98-btn {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  border: 0;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 75px;
+  min-height: 23px;
+  color: var(--win98-black);
+  white-space: nowrap;
+}
+
+.win98-btn:hover {
+  background: #d0d0d0;
+}
+
+.win98-btn:active,
+.win98-btn.active {
+  box-shadow: var(--bevel-pressed);
+  padding-top: 5px;
+  padding-left: 13px;
+}
+
+.win98-btn:disabled {
+  color: var(--win98-dark);
+  cursor: default;
+}
+
+.win98-btn.primary {
+  font-weight: bold;
+}
+
+/* ── Input ──────────────────────────────────────────── */
+.win98-input {
+  background: var(--win98-white);
+  box-shadow: var(--bevel-in);
+  border: 0;
+  padding: 3px 4px;
+  font-family: inherit;
+  font-size: 11px;
+  width: 100%;
+  color: var(--win98-black);
+  outline: none;
+}
+
+.win98-input:focus {
+  outline: 1px dotted var(--win98-black);
+  outline-offset: -2px;
+}
+
+textarea.win98-input {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ── Select ─────────────────────────────────────────── */
+.win98-select {
+  background: var(--win98-white);
+  box-shadow: var(--bevel-in);
+  border: 0;
+  padding: 2px 4px;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--win98-black);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M2 4l4 4 4-4z' fill='%23000'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 3px center;
+}
+
+/* ── Checkbox ───────────────────────────────────────── */
+.win98-checkbox {
+  accent-color: var(--win98-blue);
+}
+
+/* ── Status bar ─────────────────────────────────────── */
+.win98-statusbar {
+  background: var(--win98-gray);
+  border-top: 1px solid var(--win98-dark);
+  padding: 2px 6px;
+  font-size: 11px;
+  display: flex;
+  gap: 8px;
+}
+
+.win98-statusbar-field {
+  box-shadow: var(--bevel-in);
+  padding: 1px 6px;
+  min-width: 80px;
+}
+
+/* ── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar        { width: 16px; height: 16px; }
+::-webkit-scrollbar-track  { background: var(--win98-gray); }
+::-webkit-scrollbar-thumb  {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  border: 0;
+}
+::-webkit-scrollbar-button {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  width: 16px;
+  height: 16px;
+}
+::-webkit-scrollbar-corner { background: var(--win98-gray); }
+
+/* ── Toolbar ────────────────────────────────────────── */
+.win98-toolbar {
+  background: var(--win98-gray);
+  border-bottom: 1px solid var(--win98-dark);
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.win98-toolbar-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--win98-dark);
+  margin: 0 2px;
+  box-shadow: 1px 0 var(--win98-white);
+}
+
+/* ── Panel / fieldset ───────────────────────────────── */
+.win98-panel {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-in);
+  padding: 8px;
+}
+
+.win98-fieldset {
+  border: 2px groove var(--win98-dark);
+  padding: 8px 10px 10px;
+  margin: 6px 0;
+}
+
+.win98-fieldset legend {
+  padding: 0 4px;
+  font-size: 11px;
+}
+
+/* ── Table ──────────────────────────────────────────── */
+.win98-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.win98-table th {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  padding: 3px 6px;
+  text-align: left;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.win98-table td {
+  padding: 2px 6px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.win98-table tr:hover td {
+  background: var(--win98-highlight);
+  color: var(--win98-white);
+}
+
+.win98-table tr.selected td {
+  background: var(--win98-highlight);
+  color: var(--win98-white);
+}
+
+/* ── Stars ──────────────────────────────────────────── */
+.win98-stars { color: #ffcc00; letter-spacing: 1px; font-size: 14px; }
+.win98-stars .empty { color: var(--win98-dark); }
+
+/* ── Post card ──────────────────────────────────────── */
+.post-card {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  padding: 0;
+  cursor: pointer;
+  transition: none;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-card:hover .post-card-title {
+  text-decoration: underline;
+}
+
+.post-card-titlebar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: white;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.post-card-body {
+  padding: 8px 10px;
+}
+
+.post-card-title {
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: var(--win98-black);
+}
+
+.post-card-meta {
+  color: var(--win98-darker);
+  font-size: 10px;
+  margin-bottom: 6px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.post-card-excerpt {
+  font-size: 11px;
+  color: var(--win98-black);
+  line-height: 1.5;
+}
+
+/* ── Badge ──────────────────────────────────────────── */
+.win98-badge {
+  display: inline-block;
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  padding: 1px 6px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.win98-badge.active,
+.win98-badge:hover {
+  background: var(--win98-blue);
+  color: var(--win98-white);
+  box-shadow: var(--bevel-pressed);
+}
+
+/* ── Taskbar ────────────────────────────────────────── */
+.win98-taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: var(--win98-gray);
+  box-shadow: 0 -1px 0 var(--win98-white), inset 0 1px 0 var(--win98-dark);
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  gap: 4px;
+  z-index: 9999;
+}
+
+.win98-start-btn {
+  background: var(--win98-gray);
+  box-shadow: var(--bevel-out);
+  border: 0;
+  padding: 2px 8px;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+}
+
+.win98-start-btn:active { box-shadow: var(--bevel-pressed); }
+
+.win98-clock {
+  margin-left: auto;
+  box-shadow: var(--bevel-in);
+  padding: 2px 8px;
+  font-size: 11px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Progress bar ───────────────────────────────────── */
+.win98-progress {
+  box-shadow: var(--bevel-in);
+  background: var(--win98-white);
+  height: 16px;
+  overflow: hidden;
+}
+
+.win98-progress-bar {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--win98-blue) 0px,
+    var(--win98-blue) 10px,
+    var(--win98-blue-lt) 10px,
+    var(--win98-blue-lt) 12px
+  );
+  transition: width 0.3s;
+}
+
+/* ── Desktop icons ──────────────────────────────────── */
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  cursor: pointer;
+  width: 70px;
+  text-align: center;
+  color: var(--win98-white);
+  font-size: 11px;
+  text-shadow: 1px 1px var(--win98-black);
+}
+
+.desktop-icon:hover .icon-label,
+.desktop-icon.selected .icon-label {
+  background: var(--win98-highlight);
+  outline: 1px dotted var(--win98-white);
+}
+
+/* ── Link ───────────────────────────────────────────── */
+a.win98-link {
+  color: var(--win98-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── Content area padding ───────────────────────────── */
+.win98-content {
+  padding: 8px;
+}
+
+/* ── Label ──────────────────────────────────────────── */
+.win98-label {
+  font-size: 11px;
+  margin-bottom: 2px;
+  display: block;
+}
+
+/* ── Form row ───────────────────────────────────────── */
+.form-row {
+  margin-bottom: 8px;
+}
