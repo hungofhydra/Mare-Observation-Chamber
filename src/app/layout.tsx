@@ -21,12 +21,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <img
             src="/character.png"
             alt=""
+            className="character-img"
             style={{
               position: 'fixed',
               bottom: 28,
               right: 0,
               height: 280,
-
               width: 'auto',
             }}
           />

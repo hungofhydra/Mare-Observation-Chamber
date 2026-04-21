@@ -488,3 +488,10 @@ a.win98-link {
 .form-row {
   margin-bottom: 8px;
 }
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  .character-img {
+    display: none;
+  }
+}
