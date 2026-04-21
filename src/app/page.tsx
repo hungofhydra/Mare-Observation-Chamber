@@ -111,7 +111,7 @@ export default async function HomePage({
               justifyContent: 'center',
               gap: 16,
             }}>
-              <Image width={500} height={250} src={"https://static.wikia.nocookie.net/saimoe/images/8/82/Mare_vn_profile_2.png/revision/latest?cb=20211020115912"}></Image>
+              <Image width={500} height={250} src={"https://static.wikia.nocookie.net/saimoe/images/8/82/Mare_vn_profile_2.png/revision/latest?cb=20211020115912"} alt=''></Image>
             </div>
           </div>
 
