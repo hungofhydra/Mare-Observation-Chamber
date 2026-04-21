@@ -4,7 +4,7 @@ import { Providers } from './providers';
 import { Taskbar } from '@/components/Taskbar';
 
 export const metadata: Metadata = {
-  title: "My Blog '98",
+  title: "Mare Observation Chamber",
   description: 'A personal blog with Windows 98 vibes',
 };
 
