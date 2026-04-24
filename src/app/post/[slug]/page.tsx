@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Window } from '@/components/Window';
-import { StarRating } from '@/components/StarRating';
+import { ScoreRating } from '@/components/ScoreRating';
 import { renderContent } from '@/lib/renderContent';
 
 interface Post {
@@ -66,7 +66,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
             <span className="win98-statusbar-field">Done</span>
             <span className="win98-statusbar-field">{post.category}</span>
             {post.rating !== undefined && post.rating > 0 && (
-              <span className="win98-statusbar-field">Rating: {post.rating}/5</span>
+              <span className="win98-statusbar-field">Score: {post.rating}/10</span>
             )}
           </div>
         }
@@ -84,9 +84,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
               <span>📅 {date}</span>
               <span>📂 {post.category}</span>
               {post.rating !== undefined && post.rating > 0 && (
-                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  ⭐ Rating: <StarRating value={post.rating} readonly />
-                </span>
+                <span>⭐ Score: <ScoreRating value={post.rating} readonly /></span>
               )}
             </div>
           </div>
@@ -117,13 +115,12 @@ export default async function PostPage({ params }: { params: { slug: string } })
               <div className="win98-fieldset">
                 <legend>🏆 Final Verdict</legend>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <StarRating value={post.rating} readonly />
+                  <ScoreRating value={post.rating} readonly />
                   <span style={{ fontSize: 13, fontWeight: 'bold' }}>
-                    {post.rating}/5 —{' '}
-                    {post.rating >= 5 ? 'Masterpiece!' :
-                     post.rating >= 4 ? 'Great!' :
-                     post.rating >= 3 ? 'Pretty Good' :
-                     post.rating >= 2 ? 'Mixed' : 'Disappointing'}
+                    {post.rating >= 9 ? 'Masterpiece!' :
+                     post.rating >= 7 ? 'Great!' :
+                     post.rating >= 5 ? 'Pretty Good' :
+                     post.rating >= 3 ? 'Mixed' : 'Disappointing'}
                   </span>
                 </div>
               </div>

@@ -4,7 +4,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Window } from '@/components/Window';
-import { StarRating } from '@/components/StarRating';
+import { ScoreRating } from '@/components/ScoreRating';
 
 interface Post {
   _id: string;
@@ -196,7 +196,7 @@ export default function AdminPage() {
                         <td>{post.category}</td>
                         <td>
                           {post.rating !== undefined && post.rating > 0
-                            ? <StarRating value={post.rating} readonly />
+                            ? <ScoreRating value={post.rating} readonly />
                             : <span style={{ color: '#808080' }}>—</span>}
                         </td>
                         <td>

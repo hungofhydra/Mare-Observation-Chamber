@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Window } from './Window';
-import { StarRating } from './StarRating';
+import { ScoreRating } from './ScoreRating';
 import { renderContent } from '@/lib/renderContent';
 
 interface CategoryOption {
@@ -354,7 +354,7 @@ export function PostEditor({ initial, mode, postId }: PostEditorProps) {
                 <div style={{ fontSize: 16, fontWeight: 'bold' }}>{form.title || '(no title)'}</div>
                 <div style={{ fontSize: 10, opacity: 0.8, marginTop: 2 }}>
                   {form.category}
-                  {showRating && form.rating > 0 && <> · <StarRating value={form.rating} readonly /></>}
+                  {showRating && form.rating > 0 && <> · <ScoreRating value={form.rating} readonly /></>}
                 </div>
               </div>
               {form.coverImage && (
@@ -405,9 +405,9 @@ export function PostEditor({ initial, mode, postId }: PostEditorProps) {
 
                 {showRating && (
                   <div className="form-row">
-                    <label className="win98-label">Rating (1–5 stars):</label>
+                    <label className="win98-label">Score (0–10):</label>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <StarRating value={form.rating} onChange={v => set('rating', v)} />
+                      <ScoreRating value={form.rating} onChange={v => set('rating', v)} />
                       {form.rating > 0 && (
                         <button
                           className="win98-btn"

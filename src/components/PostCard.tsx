@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { StarRating } from './StarRating';
 
 interface PostCardProps {
   post: {
@@ -40,7 +39,7 @@ export function PostCard({ post, showDraft = false, emoji = '📝' }: PostCardPr
         <div className="post-card-meta">
           <span>📅 {date}</span>
           {post.rating !== undefined && post.rating > 0 && (
-            <span><StarRating value={post.rating} readonly /></span>
+            <span style={{ fontWeight: 'bold', fontFamily: "'VT323', monospace", fontSize: 15 }}>{post.rating}/10</span>
           )}
           {post.tags.slice(0, 3).map(t => (
             <span key={t} style={{ background: '#000080', color: '#fff', padding: '0 4px', fontSize: 9 }}>

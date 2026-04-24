@@ -21,7 +21,7 @@ const PostSchema = new Schema<IPost>(
     excerpt: { type: String, required: false, maxlength: 300 },
     content: { type: String, required: false },
     category: { type: String, required: true, default: "General" },
-    rating: { type: Number, min: 0, max: 5 },
+    rating: { type: Number, min: 0, max: 10 },
     coverImage: { type: String },
     tags: { type: [String], default: [] },
     published: { type: Boolean, default: false },
