@@ -1,11 +1,16 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Window } from './Window';
 import { StarRating } from './StarRating';
 import { renderContent } from '@/lib/renderContent';
 
-const CATEGORIES = ['General', 'Review', 'Tech', 'Gaming', 'Movies', 'Music', 'Books'];
+interface CategoryOption {
+  _id: string;
+  name: string;
+  emoji: string;
+  showRating: boolean;
+}
 
 interface PostData {
   _id?: string;
@@ -27,6 +32,15 @@ interface PostEditorProps {
 
 export function PostEditor({ initial, mode, postId }: PostEditorProps) {
   const router = useRouter();
+  const [categories, setCategories] = useState<CategoryOption[]>([]);
+
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(r => r.json())
+      .then(setCategories)
+      .catch(() => {});
+  }, []);
+
   const [form, setForm] = useState<PostData>({
     title:      initial?.title      ?? '',
     excerpt:    initial?.excerpt    ?? '',
@@ -181,9 +195,8 @@ export function PostEditor({ initial, mode, postId }: PostEditorProps) {
     router.push('/admin');
   }
 
-  const showRating = form.category === 'Review' || form.category === 'Movies' || 
-                     form.category === 'Gaming' || form.category === 'Music' || 
-                     form.category === 'Books';
+  const selectedCatData = categories.find(c => c.name === form.category);
+  const showRating = selectedCatData?.showRating ?? false;
 
   return (
     <div style={{ padding: '12px 12px 40px', maxWidth: 860, margin: '0 auto' }}>
@@ -384,7 +397,9 @@ export function PostEditor({ initial, mode, postId }: PostEditorProps) {
                     onChange={e => set('category', e.target.value)}
                     style={{ width: '100%', height: 22 }}
                   >
-                    {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+                    {categories.map(c => (
+                      <option key={c._id} value={c.name}>{c.emoji} {c.name}</option>
+                    ))}
                   </select>
                 </div>
 

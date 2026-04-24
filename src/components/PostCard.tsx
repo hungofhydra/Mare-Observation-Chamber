@@ -15,9 +15,10 @@ interface PostCardProps {
     published: boolean;
   };
   showDraft?: boolean;
+  emoji?: string;
 }
 
-export function PostCard({ post, showDraft = false }: PostCardProps) {
+export function PostCard({ post, showDraft = false, emoji = '📝' }: PostCardProps) {
   const date = new Date(post.createdAt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric',
   });
@@ -25,7 +26,7 @@ export function PostCard({ post, showDraft = false }: PostCardProps) {
   return (
     <Link href={`/post/${post.slug}`} className="post-card" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
       <div className="post-card-titlebar">
-        <span>{post.category === 'Review' ? '⭐' : post.category === 'Tech' ? '💾' : post.category === 'Gaming' ? '🎮' : '📝'}</span>
+        <span>{emoji}</span>
         <span>{post.category}</span>
         {showDraft && !post.published && (
           <span style={{ marginLeft: 'auto', background: '#ffff00', color: '#000', padding: '0 4px', fontSize: 9 }}>DRAFT</span>

@@ -16,10 +16,17 @@ interface Post {
   createdAt: string;
 }
 
+interface Category {
+  _id: string;
+  name: string;
+  emoji: string;
+}
+
 export default function AdminPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [posts, setPosts]         = useState<Post[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading]     = useState(true);
   const [selected, setSelected]   = useState<string | null>(null);
   const [deleting, setDeleting]   = useState(false);
@@ -30,7 +37,10 @@ export default function AdminPage() {
   }, [status, router]);
 
   useEffect(() => {
-    if (status === 'authenticated') fetchPosts();
+    if (status === 'authenticated') {
+      fetchPosts();
+      fetch('/api/categories').then(r => r.json()).then(setCategories).catch(() => {});
+    }
   }, [status]);
 
   async function fetchPosts() {
@@ -42,6 +52,8 @@ export default function AdminPage() {
     setStatusMsg(`${data.posts?.length ?? 0} item(s)`);
     setLoading(false);
   }
+
+  const emojiMap = Object.fromEntries(categories.map(c => [c.name, c.emoji]));
 
   async function togglePublish(post: Post) {
     setStatusMsg('Updating...');
@@ -122,6 +134,10 @@ export default function AdminPage() {
               🔄 Refresh
             </button>
             <div className="win98-toolbar-sep" />
+            <Link href="/admin/categories">
+              <button className="win98-btn" style={{ height: 22 }}>📂 Categories</button>
+            </Link>
+            <div className="win98-toolbar-sep" />
             <Link href="/">
               <button className="win98-btn" style={{ height: 22 }}>🌐 View Blog</button>
             </Link>
@@ -174,9 +190,7 @@ export default function AdminPage() {
                         style={{ cursor: 'pointer' }}
                       >
                         <td style={{ textAlign: 'center' }}>
-                          {post.category === 'Review' ? '⭐' :
-                           post.category === 'Gaming' ? '🎮' :
-                           post.category === 'Tech' ? '💾' : '📝'}
+                          {emojiMap[post.category] ?? '📝'}
                         </td>
                         <td style={{ fontWeight: 'bold' }}>{post.title}</td>
                         <td>{post.category}</td>

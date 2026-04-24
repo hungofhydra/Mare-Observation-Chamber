@@ -14,6 +14,13 @@ interface Post {
   published: boolean;
 }
 
+interface Category {
+  _id: string;
+  name: string;
+  emoji: string;
+  showRating: boolean;
+}
+
 async function getPosts(category?: string): Promise<{ posts: Post[]; total: number }> {
   try {
     const base = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
@@ -27,7 +34,16 @@ async function getPosts(category?: string): Promise<{ posts: Post[]; total: numb
   }
 }
 
-const CATEGORIES = ['All', 'General', 'Review', 'Tech', 'Gaming', 'Movies', 'Music', 'Books'];
+async function getCategories(): Promise<Category[]> {
+  try {
+    const base = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+    const res = await fetch(`${base}/api/categories`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
 
 export default async function HomePage({
   searchParams,
@@ -36,7 +52,8 @@ export default async function HomePage({
 }) {
   const selectedCat = searchParams.category ?? 'All';
   const searchQuery = searchParams.search ?? '';
-  const { posts, total } = await getPosts(selectedCat);
+  const [{ posts, total }, categories] = await Promise.all([getPosts(selectedCat), getCategories()]);
+  const emojiMap = Object.fromEntries(categories.map(c => [c.name, c.emoji]));
   const filtered = searchQuery
     ? posts.filter(p => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
     : posts;
@@ -119,10 +136,13 @@ export default async function HomePage({
           <div style={{ marginBottom: 10 }}>
             <div style={{ fontSize: 11, marginBottom: 4, fontWeight: 'bold' }}>📂 Categories:</div>
             <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-              {CATEGORIES.map(cat => (
-                <a key={cat} href={cat === 'All' ? '/' : `/?category=${cat}`} style={{ textDecoration: 'none' }}>
-                  <span className={`win98-badge ${selectedCat === cat ? 'active' : ''}`}>
-                    {cat}
+              <a href="/" style={{ textDecoration: 'none' }}>
+                <span className={`win98-badge ${selectedCat === 'All' ? 'active' : ''}`}>All</span>
+              </a>
+              {categories.map(cat => (
+                <a key={cat._id} href={`/?category=${cat.name}`} style={{ textDecoration: 'none' }}>
+                  <span className={`win98-badge ${selectedCat === cat.name ? 'active' : ''}`}>
+                    {cat.emoji} {cat.name}
                   </span>
                 </a>
               ))}
@@ -154,7 +174,7 @@ export default async function HomePage({
               gap: 10,
             }}>
               {filtered.map(post => (
-                <PostCard key={post._id} post={post} />
+                <PostCard key={post._id} post={post} emoji={emojiMap[post.category] ?? '📝'} />
               ))}
             </div>
           )}
