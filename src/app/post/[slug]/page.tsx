@@ -46,12 +46,12 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <button className="win98-btn" style={{ height: 22, minWidth: 60 }}>◀ Back</button>
         </Link>
         <div className="win98-panel" style={{ flex: 1, padding: '2px 6px', fontSize: 11 }}>
-          📁 My Blog &apos;98 › {post.category} › {post.title}
+          📁 Mare Chamber › {post.category} › {post.title}
         </div>
       </div>
 
       <Window
-        title={`${post.title} — My Blog '98`}
+        title={`${post.title} — Mare Observation Chamber`}
         icon={post.category === 'Review' ? '⭐' : post.category === 'Gaming' ? '🎮' : '📝'}
         menuBar={
           <div className="win98-menubar">

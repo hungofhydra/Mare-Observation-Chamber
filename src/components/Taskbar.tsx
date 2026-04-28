@@ -30,7 +30,7 @@ export function Taskbar() {
 
       <Link href="/">
         <button className="win98-btn" style={{ minWidth: 120, height: 22, textAlign: 'left', fontSize: 11 }}>
-          📰 My Blog '98
+          📰 Mare Observation Chamber
         </button>
       </Link>
 
