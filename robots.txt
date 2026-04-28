@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mare-chamber.up.railway.app/sitemap.xml
